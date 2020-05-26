@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -10,12 +11,12 @@ class Login_form(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 class Register_form(forms.Form):
-    username = forms.CharField(max_length=64)
+    username = forms.CharField(max_length=191)
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
-    first = forms.CharField(max_length=64)
-    last = forms.CharField(max_length=64)
+    first = forms.CharField(max_length=30)
+    last = forms.CharField(max_length=150)
 
 def index(request):
     #If user is logged in, display info
@@ -66,17 +67,22 @@ def register(request):
     
     #If user submits form
     if request.method == "POST":
-        username = request.POST["username"]
-        email = request.POST["email"]
-        password = request.POST["password"]
-        confirm_password = request.POST["confirm_password"]
-        first = request.POST["first"]
-        last = request.POST["last"]
+        form = Register_form(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            confirm_password = form.cleaned_data["confirm_password"]
+            first = form.cleaned_data["first"]
+            last = form.cleaned_data["last"]
         if password != confirm_password:
             return render(request, "users/register.html", {
                 "form": Register_form(),
                 "message": "Passwords must match"
             })
+        user = User.objects.create_user(username=username, email=email, password=password, first_name=first, last_name=last)
+        login(request, user)
+        return HttpResponseRedirect(reverse("index"))
 
     #User sees page first time
     return render(request, "users/register.html", {
