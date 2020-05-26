@@ -6,5 +6,9 @@ User
 
 {% block body %}
     <h1>Userinfo</h1>
+    <h3>First: {{ request.user.first_name }}</h3>
+    <h3>Last: {{ request.user.last_name}}</h3>
+    <h3>Username: {{ request.user.username }}</h3>
+    <h3>Email: {{ request.user.email }}</h3>
     <a href="{% url 'logout' %}">Logout</a>
 {% endblock %}
