@@ -1,0 +1,14 @@
+{% extends 'users/layouts.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+    <h1>Login</h1>
+    <form action="{%url 'login' %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="login">
+    </form>
+{% endblock %}
