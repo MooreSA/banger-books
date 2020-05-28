@@ -1,0 +1,15 @@
+{% extends 'search/layouts.html' %}
+
+{% block title %}
+Results
+{% endblock %}
+
+{% block body %}
+    <h1>Book Information:</h1>
+
+    <ul>
+        <li>Title: {{ book.title }}</li>
+        <li>ISBN: {{ book.isbn }}</li>
+        <li>Year: {{ book.year }}</li>
+    </ul>
+{% endblock %}

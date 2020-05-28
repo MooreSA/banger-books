@@ -5,8 +5,8 @@ Search
 
 {% block body %}
     <h1>Search</h1>
-    <form action="{% url 'search:index' %}" method="GET">
-        <input type="text" name="query">
+    <form action="{% url 'search:results' %}" method="GET">
+        {{ form }}
         <input type="submit">
     </form>
 {% endblock %}
