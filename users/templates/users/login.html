@@ -6,10 +6,10 @@ Login
 
 {% block body %}
     <h1>Login</h1>
-    <form action="{% url 'login' %}" method="POST" name="register_form">
+    <form action="{% url 'users:login' %}" method="POST" name="register_form">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="login">
     </form>
-    <a href="{% url 'register' %}">Register</a>
+    <a href="{% url 'users:register' %}">Register</a>
 {% endblock %}

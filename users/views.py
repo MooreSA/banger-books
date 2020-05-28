@@ -24,13 +24,13 @@ def index(request):
         return render(request, "users/user.html")
 
     #Else redirect to login page
-    return HttpResponseRedirect(reverse("login"))
+    return HttpResponseRedirect(reverse("users:login"))
 
 
 def login_view(request):
     #If user is logged in, redirect to userinfo
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("users:index"))
 
     #If user submits form, authenticate credentials
     if request.method == "POST":
@@ -40,7 +40,7 @@ def login_view(request):
         #user returns None with invalid credentials
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("users:index"))
 
         #Prompts user to try again if invalid
         return render(request, "users/login.html",{
@@ -63,7 +63,7 @@ def logout_view(request):
 def register(request):
     #If user is already logged in, doesn't allow them to register new acct
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("users:index"))
     
     #If user submits form
     if request.method == "POST":
@@ -82,10 +82,9 @@ def register(request):
             })
         user = User.objects.create_user(username=username, email=email, password=password, first_name=first, last_name=last)
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("users:index"))
 
     #User sees page first time
     return render(request, "users/register.html", {
         "form": Register_form(),
-        "message": "TODO"
     })
