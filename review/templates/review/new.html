@@ -1,0 +1,11 @@
+{% block title %}
+New Review
+{% endblock %}
+
+{% block body %}
+    <form action="{% url 'review:new' book.id %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+{% endblock %}

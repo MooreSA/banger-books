@@ -4,6 +4,7 @@ Results
 {% endblock %}
 {% block body %}
     <h1>Query: {{ query }}</h1>
+    <a href="{% url 'search:index' %}">New Search</a>
     <h1>Results</h1>
     <h3>Authors</h3>
     <ul>
@@ -19,7 +20,7 @@ Results
     <ul>
         {% for title in titles %}
         <li>
-            <a href="{% url 'search:book' title.id %}">{{ title }}</a>
+            <a href="{% url 'search:book' title.id %}">{{ title.title }}</a>
         </li>
         {% empty %}
         <li>No titles match</li>

@@ -7,4 +7,13 @@ Author: {{ author.name }}
 {% block body %}
     <h1>Author Information:</h1>
     <h3>{{ author.name }}</h3>
+    <h1>Books Written</h1>
+    <ul>
+        {% for book in books %}
+        <li>
+            <a href="{% url 'search:book' book.id %}">{{ book.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'search:index' %}">New Search</a>
 {% endblock %}

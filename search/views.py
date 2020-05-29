@@ -27,12 +27,16 @@ def results(request):
 
 def author(request, author_id): 
     this_author = Author.objects.get(pk=author_id)
+    books = this_author.books.all()
     return render(request, "search/author.html", {
-        "author": this_author
+        "author": this_author,
+        "books": books
     })
 
 def book(request, book_id):
     this_book = Book.objects.get(pk=book_id)
+    this_author = Author.objects.get(pk=this_book.author_id_id)
     return render(request, "search/book.html", {
-        "book": this_book
+        "book": this_book,
+        "author": this_author
     })

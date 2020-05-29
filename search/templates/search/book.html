@@ -9,7 +9,11 @@ Results
 
     <ul>
         <li>Title: {{ book.title }}</li>
+        <li>Author:
+            <a href="{% url 'search:author' author.id %}">{{ author.name }}</a>
+        </li>
         <li>ISBN: {{ book.isbn }}</li>
         <li>Year: {{ book.year }}</li>
     </ul>
+    <a href="{% url 'search:index' %}">New Search</a>
 {% endblock %}
