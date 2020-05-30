@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -18,13 +19,10 @@ class Register_form(forms.Form):
     first = forms.CharField(max_length=30)
     last = forms.CharField(max_length=150)
 
+@login_required()
 def index(request):
-    #If user is logged in, display info
-    if request.user.is_authenticated:
-        return render(request, "users/user.html")
-
-    #Else redirect to login page
-    return HttpResponseRedirect(reverse("users:login"))
+    #If user is logged in, display info on user
+    return render(request, "users/user.html")
 
 
 def login_view(request):
@@ -54,6 +52,7 @@ def login_view(request):
     })
 
 def logout_view(request):
+    #Logs user out
     logout(request)
     return render(request, "users/login.html", {
         "message": "Logged Out",
