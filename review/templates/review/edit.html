@@ -1,0 +1,14 @@
+{% extends 'review/layouts.html' %}
+{% block title %}
+Edit Review
+{% endblock %}
+
+{% block body %}
+    <h1>Edit your review</h1>
+    {{ book }}
+    <form action="{% url 'review:edit' book.id %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+{% endblock %}

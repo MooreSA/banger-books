@@ -12,6 +12,27 @@ class ReviewForm(forms.Form):
     content = forms.CharField(max_length=1024)
     rating = forms.IntegerField(max_value=5, min_value=0)
 
+#TODO show all reviews by user?
+@login_required()
+def index(request):
+    return HttpResponseRedirect(reverse("search:index"))
+
+#TODO
+@login_required()
+def edit(request, book_id):
+    #Check if user has reviewed this book
+    if Review.objects.filter(user_id=request.user.id, book_id=book_id).exists():
+        review = Review.objects.get(user_id=request.user.id, book_id=book_id)
+        book = Book.objects.get(pk=book_id)
+        #Render an edit form with their current review
+        return render(request, "review/edit.html", {
+            "book": book,
+            "form": ReviewForm(initial={'title': review.title, 'content': review.content,
+                                        'rating': review.rating})
+        })
+    #if user has not reviewed this book, redirect to book page
+    return HttpResponseRedirect(reverse("search:book", args=(book_id,)))
+
 @login_required()
 def new(request, book_id):
     #Get info from form
@@ -29,7 +50,7 @@ def new(request, book_id):
 
     #Check if user has already reviewed this book
     if Review.objects.filter(user_id=request.user.id).exists():
-        return HttpResponseRedirect(reverse('users:index'))
+        return HttpResponseRedirect(reverse('review:edit', args=(book_id,)))
 
     #Render view for new review
     this_book = Book.objects.get(pk=book_id)
