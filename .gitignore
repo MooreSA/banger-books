@@ -1,0 +1,12 @@
+bangerbooks/__pycache__/settings.cpython-37.pyc
+bangerbooks/__pycache__/urls.cpython-37.pyc
+review/__pycache__/__init__.cpython-37.pyc
+review/__pycache__/admin.cpython-37.pyc
+review/__pycache__/models.cpython-37.pyc
+review/__pycache__/urls.cpython-37.pyc
+review/__pycache__/views.cpython-37.pyc
+review/migrations/__pycache__/__init__.cpython-37.pyc
+review/migrations/__pycache__/0001_initial.cpython-37.pyc
+search/__pycache__/admin.cpython-37.pyc
+search/__pycache__/views.cpython-37.pyc
+users/__pycache__/views.cpython-37.pyc

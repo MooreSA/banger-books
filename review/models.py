@@ -9,3 +9,6 @@ class Review(models.Model):
     user_id = models.IntegerField()
     content = models.TextField(max_length=1024)
     rating = models.SmallIntegerField(default=3, validators=[MaxValueValidator(5)])
+
+    def __str__(self):
+        return f"Review of {self.book}, {self.rating} out of 5"

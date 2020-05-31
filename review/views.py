@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from search.models import Author, Book
 from django.shortcuts import render
 from django.urls import reverse
+
+from search.models import Author, Book
 from .models import Review
 # Create your views here.
 
@@ -12,15 +13,29 @@ class ReviewForm(forms.Form):
     content = forms.CharField(max_length=1024)
     rating = forms.IntegerField(max_value=5, min_value=0)
 
-#TODO show all reviews by user?
+
 @login_required()
 def index(request):
-    return HttpResponseRedirect(reverse("search:index"))
+    reviews = Review.objects.filter(user_id=request.user.id)
+    return render(request, 'review/index.html', {
+        'reviews': reviews
+    })
 
-#TODO
+
 @login_required()
 def edit(request, book_id):
-    #Check if user has reviewed this book
+    #Update review model with updated review
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            content = form.cleaned_data['content']
+            rating = form.cleaned_data['rating']
+            Review.objects.filter(user_id=request.user.id,
+                               book_id=book_id).update(title=title, content=content, rating=rating)
+        return HttpResponseRedirect(reverse("review:index"))
+
+    #Check if user has review this book before
     if Review.objects.filter(user_id=request.user.id, book_id=book_id).exists():
         review = Review.objects.get(user_id=request.user.id, book_id=book_id)
         book = Book.objects.get(pk=book_id)
@@ -30,6 +45,8 @@ def edit(request, book_id):
             "form": ReviewForm(initial={'title': review.title, 'content': review.content,
                                         'rating': review.rating})
         })
+
+
     #if user has not reviewed this book, redirect to book page
     return HttpResponseRedirect(reverse("search:book", args=(book_id,)))
 
@@ -45,11 +62,13 @@ def new(request, book_id):
             user_id = request.user.id
             book = Book.objects.get(pk=book_id)
             #Save info into  new review
-            new_review = Review(title=title, content=content, rating=rating, user_id=user_id, book=book)
+            new_review = Review(title=title, content=content, rating=rating,
+                                user_id=user_id, book=book)
             new_review.save()
+            return render(request, "review:index")
 
     #Check if user has already reviewed this book
-    if Review.objects.filter(user_id=request.user.id).exists():
+    if Review.objects.filter(user_id=request.user.id, book_id=book_id).exists():
         return HttpResponseRedirect(reverse('review:edit', args=(book_id,)))
 
     #Render view for new review

@@ -15,5 +15,6 @@ Results
         <li>ISBN: {{ book.isbn }}</li>
         <li>Year: {{ book.year }}</li>
     </ul>
+    <a href="{% url 'review:new' book.id %}">Leave a Review</a>
     <a href="{% url 'search:index' %}">New Search</a>
 {% endblock %}
