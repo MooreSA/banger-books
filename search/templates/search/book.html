@@ -1,12 +1,17 @@
 {% extends 'search/layouts.html' %}
+{% block head %}
+{% load static %}
+<script src="{% static 'search/js/book.js' %}"></script>
 
+{% endblock %}
 {% block title %}
-Results
 {% endblock %}
 
 {% block body %}
     <h1>Book Information:</h1>
+    <h1 id='test'>
 
+    </h1>
     <ul>
         <li>Title: {{ book.title }}</li>
         <li>Author:
