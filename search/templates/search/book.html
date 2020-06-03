@@ -1,25 +1,23 @@
 {% extends 'search/layouts.html' %}
 {% block head %}
 {% load static %}
-<script src="{% static 'search/js/book.js' %}"></script>
-
-{% endblock %}
-{% block title %}
+<script src="{% static 'search/js/book.js' %}"></script>  
+<title>{{ book.title }} Infomation</title>
 {% endblock %}
 
 {% block body %}
     <h1>Book Information:</h1>
-    <h1 id='test'>
-
-    </h1>
     <ul>
         <li>Title: {{ book.title }}</li>
         <li>Author:
             <a href="{% url 'search:author' author.id %}">{{ author.name }}</a>
         </li>
-        <li>ISBN: {{ book.isbn }}</li>
+        <li >ISBN: {{ book.isbn }}</li>
         <li>Year: {{ book.year }}</li>
+        <li id='average_rating'></li>
+        <li id='reviews_count'></li>
     </ul>
     <a href="{% url 'review:new' book.id %}">Leave a Review</a>
     <a href="{% url 'search:index' %}">New Search</a>
+    <div id='isbn' hidden=true>{{ book.isbn}}</div>
 {% endblock %}
