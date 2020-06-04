@@ -8,16 +8,16 @@ from django import forms
 
 # Create your views here.
 class Login_form(forms.Form):
-    username = forms.CharField(max_length=64)
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(max_length=64, widget=forms.TextInput(attrs={'id': 'username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'id': 'password'}))
 
 class Register_form(forms.Form):
-    username = forms.CharField(max_length=191)
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput)
-    first = forms.CharField(max_length=30)
-    last = forms.CharField(max_length=150)
+    username = forms.CharField(max_length=191, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    first = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 @login_required()
 def index(request):
@@ -63,7 +63,8 @@ def register(request):
     #If user is already logged in, doesn't allow them to register new acct
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse("users:index"))
-    
+
+    #TODO Confirm that username/email are unique
     #If user submits form
     if request.method == "POST":
         form = Register_form(request.POST)

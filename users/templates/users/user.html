@@ -5,10 +5,12 @@ User
 {% endblock %}
 
 {% block body %}
-    <h1>Userinfo</h1>
-    <h3>First: {{ request.user.first_name }}</h3>
-    <h3>Last: {{ request.user.last_name}}</h3>
-    <h3>Username: {{ request.user.username }}</h3>
-    <h3>Email: {{ request.user.email }}</h3>
-    <a href="{% url 'users:logout' %}">Logout</a>
+    <div class=container>
+        <h1>User Information</h1>
+        <h3>First Name: {{ request.user.first_name }}</h3>
+        <h3>Last: {{ request.user.last_name}}</h3>
+        <h3>Username: {{ request.user.username }}</h3>
+        <h3>Email: {{ request.user.email }}</h3>
+        <a class="btn btn-danger" href="{% url 'users:logout' %}">Logout</a>
+    </div>
 {% endblock %}

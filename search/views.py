@@ -30,7 +30,7 @@ def results(request):
             "isbns": isbns
         })
 
-def author(request, author_id): 
+def author(request, author_id):
     #Get and render author info
     this_author = Author.objects.get(pk=author_id)
     books = this_author.books.all()
