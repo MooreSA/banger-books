@@ -4,7 +4,7 @@ from search.models import Author, Book
 
 # Create your views here.
 class Searchform(forms.Form):
-    query = forms.CharField(max_length=128)
+    query = forms.CharField(max_length=128, widget=forms.TextInput(attrs={'class': "form-control"}))
 
 def index(request):
     #Render search form

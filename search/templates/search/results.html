@@ -2,38 +2,62 @@
 {% block title %}
 Results
 {% endblock %}
+{% block head %}
+<style>
+    @media only screen and (max-width: 767px) {
+        .container
+        {
+            text-align: center;
+        }
+    }
+    @media only screen and (max-width: 992px) {
+        #head
+        {
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}
 {% block body %}
-    <h1>Query: {{ query }}</h1>
-    <a href="{% url 'search:index' %}">New Search</a>
-    <h1>Results</h1>
-    <h3>Authors</h3>
-    <ul>
-        {% for author in authors %}
-        <li>
-            <a href="{% url 'search:author' author.id %}">{{ author }}</a>
-        </li>
-        {% empty %}
-        <li>No authors match</li>
-        {% endfor %}
-    </ul>
-    <h3>Titles</h3>
-    <ul>
-        {% for title in titles %}
-        <li>
-            <a href="{% url 'search:book' title.id %}">{{ title.title }}</a>
-        </li>
-        {% empty %}
-        <li>No titles match</li>
-        {% endfor %}
-    </ul>
-    <h3>ISBNs</h3>
-    <ul>
-        {% for isbn in isbns %}
-        <li>
-            {{ isbn }}
-        </li>
-        {% empty %}
-        <li>No ISBNs match</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <div id="head">
+            <h1>Query: "{{ query }}"</h1>
+            <a class="btn btn-info" href="{% url 'search:index' %}">New Search</a>
+            <h1>Results:</h1>
+        </div>
+        <div class="row">
+            {% if authors %}
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <h3>Authors</h3>
+                {% for author in authors %}
+                    <li>
+                        <a href="{% url 'search:author' author.id %}">{{ author }}</a>
+                    </li>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if titles %}
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <h3>Titles</h3>
+                {% for title in titles %}
+                    <li>
+                        <a href="{% url 'search:book' title.id %}">{{ title.title }}</a>    
+                    </li>
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% if isbns %}
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <h3>ISBNs</h3>
+                <ul>
+                    {% for isbn in isbns %}
+                    <li>
+                        {{ isbn }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}  
