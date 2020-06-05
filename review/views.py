@@ -7,11 +7,12 @@ from django.urls import reverse
 from search.models import Author, Book
 from .models import Review
 # Create your views here.
+choices = [(1, '1/5'), (2, '2/5'), (3, '3/5'), (4, '4/5'), (5, '5/5')]
 
 class ReviewForm(forms.Form):
-    title = forms.CharField(max_length=128)
-    content = forms.CharField(max_length=1024)
-    rating = forms.IntegerField(max_value=5, min_value=0)
+    title = forms.CharField(max_length=128, widget=(forms.TextInput(attrs={'class': 'form-control'})))
+    content = forms.CharField(max_length=1024, widget=(forms.Textarea(attrs={'class': 'form-control', 'rows': '4'})))
+    rating = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class': 'form-check-input'}), choices=choices)
 
 
 @login_required()

@@ -1,14 +1,29 @@
 {% extends 'review/layouts.html' %}
+
 {% block title %}
 Edit Review
 {% endblock %}
 
 {% block body %}
-    <h1>Edit your review</h1>
-    {{ book }}
-    <form action="{% url 'review:edit' book.id %}" method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit">
-    </form>
+    <div class="container">
+        <h1>Edit your review</h1>
+        {{ book }}
+        <form action="{% url 'review:edit' book.id %}" method="POST">
+            {% csrf_token %}
+            {{ form.title.label }}
+            {{ form.title }}
+            {{ form.content.label }}
+            {{ form.content }}
+            <div class="form-group">
+                <p>Rating:</p>
+                {% for radio in form.rating %}
+                <div class='form-check form-check-inline'>
+                    {{ radio.label }}
+                    {{ radio }}
+                </div>
+                {% endfor %}
+            </div>
+            <input class='btn btn-success' type="submit" value="Save">
+        </form>
+    </div>
 {% endblock %}

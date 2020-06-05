@@ -2,14 +2,19 @@
 {% block title %}
 Your Reviews
 {% endblock %}
-
+{% block head %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'review/css/index.css' %}">
+{% endblock %}
 {% block body %}
-    <h1>My Reviews</h1>
-    <ul>
-        {% for review in reviews %}
-        <li>
-        <a href="{% url 'review:new' review.book.id%}">{{ review }}</a>
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1>My Reviews</h1>
+        <ul>
+            {% for review in reviews %}
+            <li>
+                <a href="{% url 'review:edit' review.book.id%}">{{ review }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

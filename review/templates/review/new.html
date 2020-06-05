@@ -4,11 +4,27 @@ New Review
 {% endblock %}
 
 {% block body %}
-    <h1>Write a new review</h1>
-    {{ book }}
-    <form action="{% url 'review:new' book.id %}" method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit">
-    </form>
+    <div class="container">
+        <h1>Write a new review:</h1>
+        <p>Reviewing: {{ book }}</p>
+            <div class='col-lg-8 col-md-12 col-sm-12'>
+                <form action="{% url 'review:new' book.id %}" method="POST">
+                    {% csrf_token %}
+                    {{ form.title.label }}
+                    {{ form.title }}
+                    {{ form.content.label }}
+                    {{ form.content }}
+                    <div class="form-group">
+                        <p>Rating:</p>
+                        {% for radio in form.rating %}
+                        <div class='form-check form-check-inline'>
+                            {{ radio.label }}
+                            {{ radio }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <input id='submit' type="submit" class="btn btn-success">
+                </form>
+            </div>
+    </div>
 {% endblock %}
