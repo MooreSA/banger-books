@@ -11,4 +11,4 @@ class Review(models.Model):
     rating = models.SmallIntegerField(default=3, validators=[MaxValueValidator(5)])
 
     def __str__(self):
-        return f"Review of {self.book}, {self.rating} out of 5"
+        return f"Review of {self.book.title}, {self.rating} out of 5"

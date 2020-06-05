@@ -4,7 +4,7 @@ from search.models import Author, Book
 
 # Create your views here.
 class Searchform(forms.Form):
-    query = forms.CharField(max_length=128)
+    query = forms.CharField(max_length=128, widget=forms.TextInput(attrs={'class': "form-control"}))
 
 def index(request):
     #Render search form
@@ -30,7 +30,7 @@ def results(request):
             "isbns": isbns
         })
 
-def author(request, author_id): 
+def author(request, author_id):
     #Get and render author info
     this_author = Author.objects.get(pk=author_id)
     books = this_author.books.all()

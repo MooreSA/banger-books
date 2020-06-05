@@ -1,0 +1,12 @@
+@media only screen and (max-width: 767px) {
+    .container
+    {
+        text-align: center;
+    }
+}
+@media only screen and (max-width: 992px) {
+    #head
+    {
+        text-align: center;
+    }
+}

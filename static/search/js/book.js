@@ -8,4 +8,4 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('average_rating').innerHTML = `Average rating: ${data.books[0].average_rating}`
         document.getElementById('reviews_count').innerHTML = `Review Count ${data.books[0].reviews_count}`
     })
-})
+});
