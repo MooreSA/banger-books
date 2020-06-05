@@ -6,18 +6,23 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Book Information:</h1>
-    <ul>
-        <li>Title: {{ book.title }}</li>
-        <li>Author:
-            <a href="{% url 'search:author' author.id %}">{{ author.name }}</a>
-        </li>
-        <li >ISBN: {{ book.isbn }}</li>
-        <li>Year: {{ book.year }}</li>
-        <li id='average_rating'></li>
-        <li id='reviews_count'></li>
-    </ul>
-    <a href="{% url 'review:new' book.id %}">Leave a Review</a>
-    <a href="{% url 'search:index' %}">New Search</a>
-    <div id='isbn' hidden=true>{{ book.isbn}}</div>
+    <div class="container">
+        <div class="col-lg-6 col-md-10 col-sm-12">
+            <br>
+            <h1>Book Information:</h1>
+            <ul>
+                <li>Title: {{ book.title }}</li>
+                <li>Author:
+                    <a href="{% url 'search:author' author.id %}">{{ author.name }}</a>
+                </li>
+                <li >ISBN: {{ book.isbn }}</li>
+                <li>Year: {{ book.year }}</li>
+                <li id='average_rating'></li>
+                <li id='reviews_count'></li>
+            </ul>
+            <a class="btn btn-success" href="{% url 'review:new' book.id %}">Leave a Review</a>
+            <a class="btn btn-info" href="{% url 'search:index' %}">New Search</a>
+            <div id='isbn' hidden=true>{{ book.isbn}}</div>
+        </div>
+    </div>
 {% endblock %}

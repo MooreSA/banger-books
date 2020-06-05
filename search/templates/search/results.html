@@ -3,20 +3,8 @@
 Results
 {% endblock %}
 {% block head %}
-<style>
-    @media only screen and (max-width: 767px) {
-        .container
-        {
-            text-align: center;
-        }
-    }
-    @media only screen and (max-width: 992px) {
-        #head
-        {
-            text-align: center;
-        }
-    }
-</style>
+{% load static %}
+<link rel="stylesheet" href="{% static 'search/css/results.css' %}">
 {% endblock %}
 {% block body %}
     <div class="container">
